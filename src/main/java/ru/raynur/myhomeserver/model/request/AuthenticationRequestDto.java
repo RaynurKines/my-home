@@ -1,9 +1,9 @@
-package ru.raynur.myhomeserver.security;
+package ru.raynur.myhomeserver.model.request;
 
 import lombok.Data;
 
 @Data
-public class LoginDto {
+public class AuthenticationRequestDto {
     private String username;
     private String password;
 }

@@ -2,6 +2,7 @@ package ru.raynur.myhomeserver.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.raynur.myhomeserver.model.request.CreateEventRequest;
 import ru.raynur.myhomeserver.model.response.ModeratorEventResponse;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "moderator/events")
+@PreAuthorize("hasAuthority('scope:moderator')")
 public class ModeratorEventController {
 
     private final ModeratorEventService moderatorEventService;
