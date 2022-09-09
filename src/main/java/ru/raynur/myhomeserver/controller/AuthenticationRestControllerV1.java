@@ -7,15 +7,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.raynur.myhomeserver.domain.User;
-import ru.raynur.myhomeserver.repository.UserRepository;
 import ru.raynur.myhomeserver.model.request.AuthenticationRequestDto;
+import ru.raynur.myhomeserver.repository.UserRepository;
 import ru.raynur.myhomeserver.security.JwtTokenProvider;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,13 +19,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthenticationRestControllerV1 {
 
     private final AuthenticationManager authenticationManager;
-    private JwtTokenProvider jwtTokenProvider;
-    private UserRepository userRepository;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final UserRepository userRepository;
 
     @Autowired
     public AuthenticationRestControllerV1(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserRepository userRepository) {

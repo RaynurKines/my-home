@@ -2,7 +2,6 @@ package ru.raynur.myhomeserver.domain;
 
 import lombok.Getter;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import ru.raynur.myhomeserver.domain.Permission;
 
 import java.util.Set;
 import java.util.stream.Collectors;

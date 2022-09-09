@@ -6,10 +6,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.raynur.myhomeserver.model.response.ClientEventResponse;
 import ru.raynur.myhomeserver.service.ClientEventService;
-import ru.raynur.myhomeserver.service.ModeratorEventService;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping(path = "/events")
 @PreAuthorize("hasAuthority('scope:client')")

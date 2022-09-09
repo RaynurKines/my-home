@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @Accessors(chain = true)
-public class ModeratorEventResponse {
+public class EventResponse {
     private Long id;
     private String title;
     private String text;

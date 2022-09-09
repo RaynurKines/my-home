@@ -1,6 +1,9 @@
 package ru.raynur.myhomeserver.domain;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 

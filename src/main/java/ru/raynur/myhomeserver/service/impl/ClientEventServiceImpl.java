@@ -1,6 +1,5 @@
 package ru.raynur.myhomeserver.service.impl;
 
-import javax.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +11,7 @@ import ru.raynur.myhomeserver.repository.EventRepository;
 import ru.raynur.myhomeserver.service.ClientEventService;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;

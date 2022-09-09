@@ -1,9 +1,9 @@
 package ru.raynur.myhomeserver.service;
 
-import javax.validation.constraints.NotNull;
 import ru.raynur.myhomeserver.model.request.CreateHouseRequest;
 import ru.raynur.myhomeserver.model.response.HouseResponse;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public interface HouseService {

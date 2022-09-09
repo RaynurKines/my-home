@@ -1,6 +1,7 @@
 package ru.raynur.myhomeserver.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.raynur.myhomeserver.domain.House;
@@ -20,7 +21,13 @@ import static java.util.Optional.ofNullable;
 @Service
 @RequiredArgsConstructor
 public class HouseServiceImpl implements HouseService {
-    private static HouseRepository houseRepository;
+
+    private HouseRepository houseRepository;
+
+    @Autowired
+    public HouseServiceImpl(HouseRepository houseRepository) {
+        this.houseRepository = houseRepository;
+    }
 
     @NotNull
     @Override
@@ -47,7 +54,6 @@ public class HouseServiceImpl implements HouseService {
         House house = buildHouseRequest(request);
         return buildHouseResponse(houseRepository.save(house));
     }
-
 
 
     @NotNull

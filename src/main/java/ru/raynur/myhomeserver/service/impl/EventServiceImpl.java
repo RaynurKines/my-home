@@ -7,10 +7,10 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.raynur.myhomeserver.domain.Event;
 import ru.raynur.myhomeserver.domain.House;
 import ru.raynur.myhomeserver.model.request.CreateEventRequest;
-import ru.raynur.myhomeserver.model.response.ModeratorEventResponse;
+import ru.raynur.myhomeserver.model.response.EventResponse;
 import ru.raynur.myhomeserver.repository.EventRepository;
 import ru.raynur.myhomeserver.repository.HouseRepository;
-import ru.raynur.myhomeserver.service.ModeratorEventService;
+import ru.raynur.myhomeserver.service.EventService;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.NotNull;
@@ -23,13 +23,13 @@ import static java.util.Optional.ofNullable;
 
 @Service
 @RequiredArgsConstructor
-public class ModeratorEventServiceImpl implements ModeratorEventService {
+public class EventServiceImpl implements EventService {
 
     private EventRepository eventRepository;
     private HouseRepository houseRepository;
 
     @Autowired
-    public ModeratorEventServiceImpl(EventRepository eventRepository, HouseRepository houseRepository) {
+    public EventServiceImpl(EventRepository eventRepository, HouseRepository houseRepository) {
         this.eventRepository = eventRepository;
         this.houseRepository = houseRepository;
     }
@@ -37,7 +37,7 @@ public class ModeratorEventServiceImpl implements ModeratorEventService {
     @NotNull
     @Override
     @Transactional(readOnly = true)
-    public List<ModeratorEventResponse> findAll() {
+    public List<EventResponse> findAll() {
         return StreamSupport.stream(eventRepository.findAll().spliterator(), false)
                 .map(this::buildEventResponse)
                 .collect(Collectors.toList());
@@ -46,7 +46,7 @@ public class ModeratorEventServiceImpl implements ModeratorEventService {
     @NotNull
     @Override
     @Transactional(readOnly = true)
-    public ModeratorEventResponse findById(@NotNull Long eventId) {
+    public EventResponse findById(@NotNull Long eventId) {
         return eventRepository.findById(eventId)
                 .map(this::buildEventResponse)
                 .orElseThrow(() -> new EntityNotFoundException("Event " + eventId + " is not found"));
@@ -55,17 +55,16 @@ public class ModeratorEventServiceImpl implements ModeratorEventService {
     @NotNull
     @Override
     @Transactional
-    public ModeratorEventResponse create(@NotNull CreateEventRequest request) {
+    public EventResponse create(@NotNull CreateEventRequest request) {
         Event event = buildEventRequest(request);
         return buildEventResponse(eventRepository.save(event));
     }
 
 
-
     @NotNull
     @Override
     @Transactional
-    public ModeratorEventResponse update(@NotNull Long eventId, @NotNull CreateEventRequest request) {
+    public EventResponse update(@NotNull Long eventId, @NotNull CreateEventRequest request) {
         Event event = eventRepository.findById(eventId).orElseThrow(() -> new EntityNotFoundException("Event " + eventId + " is not found"));
         eventUpdate(event, request);
         return buildEventResponse(eventRepository.save(event));
@@ -73,8 +72,8 @@ public class ModeratorEventServiceImpl implements ModeratorEventService {
 
     @Override
     @Transactional
-    public ModeratorEventResponse delete(@NotNull Long eventId) {
-        ModeratorEventResponse response = eventRepository.findById(eventId)
+    public EventResponse delete(@NotNull Long eventId) {
+        EventResponse response = eventRepository.findById(eventId)
                 .map(this::buildEventResponse)
                 .orElseThrow(() -> new EntityNotFoundException("Event " + eventId + " is not found"));
         eventRepository.deleteById(eventId);
@@ -82,8 +81,8 @@ public class ModeratorEventServiceImpl implements ModeratorEventService {
     }
 
     @NotNull
-    private ModeratorEventResponse buildEventResponse(@NotNull Event event) {
-        return new ModeratorEventResponse()
+    private EventResponse buildEventResponse(@NotNull Event event) {
+        return new EventResponse()
                 .setId(event.getId())
                 .setTitle(event.getTitle())
                 .setText(event.getText())

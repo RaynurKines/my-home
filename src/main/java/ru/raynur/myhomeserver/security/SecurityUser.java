@@ -25,6 +25,17 @@ public class SecurityUser implements UserDetails {
         this.isActive = isActive;
     }
 
+    public static UserDetails fromUser(User user) {
+        return new org.springframework.security.core.userdetails.User(
+                user.getUsername(), user.getPassword(),
+                user.getStatus().equals(Status.ACTIVE),
+                user.getStatus().equals(Status.ACTIVE),
+                user.getStatus().equals(Status.ACTIVE),
+                user.getStatus().equals(Status.ACTIVE),
+                user.getRole().getAuthorities()
+        );
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
@@ -58,16 +69,5 @@ public class SecurityUser implements UserDetails {
     @Override
     public boolean isEnabled() {
         return isActive;
-    }
-
-    public static UserDetails fromUser(User user) {
-        return new org.springframework.security.core.userdetails.User(
-                user.getUsername(), user.getPassword(),
-                user.getStatus().equals(Status.ACTIVE),
-                user.getStatus().equals(Status.ACTIVE),
-                user.getStatus().equals(Status.ACTIVE),
-                user.getStatus().equals(Status.ACTIVE),
-                user.getRole().getAuthorities()
-        );
     }
 }
